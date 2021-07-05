@@ -36,7 +36,10 @@ app.layout = html.Div([cols_dropdown, fig_plot]) #permite construir la estructur
 dash.dependencies.Output('fig_plot', 'children'),
 [dash.dependencies.Input('cols_dropdown', 'value')])
 def name_to_figure(value):
-    figure=px.line(df[value]) #se crea figura que representa todas las variables
+    if value is None:
+        figure = {}
+    else:
+        figure = px.line(df[value]) #se crea figura que representa todas las variables
                                    #fig_names corresponde a la variable global (línea 25)
     return dcc.Graph(figure=figure)
 
